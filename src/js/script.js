@@ -31,6 +31,7 @@ const app = {
 
   initActions() {
     const thisApp = this;
+    console.log(thisApp)
     const bookListElement = document.querySelector('.books-list');
     console.log(bookListElement);
     const bookImageElements = bookListElement.querySelectorAll('.book__image');
@@ -38,6 +39,7 @@ const app = {
     for (let element of bookImageElements) {
       element.addEventListener('dblclick', function() {
         const bookId = element.getAttribute(thisApp.data.books.id);
+        console.log('BookID' + bookId)
         thisApp.addToFavorites(bookId);
         console.log(thisApp.addToFavorites(bookId)); //
         element.classList.add('favorite');
