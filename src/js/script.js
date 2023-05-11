@@ -1,3 +1,10 @@
+{
+const favoriteBooks = [];
+
+const initActions (){
+    
+}
+
 const app = {
     initMenu: function() {
       const thisApp = this;
@@ -35,3 +42,4 @@ const app = {
   };
   
   app.init();
+}
