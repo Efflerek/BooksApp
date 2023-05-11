@@ -15,14 +15,14 @@
 
       <!-- FILTERS FORM -->
       <section class="filters">
-        <form>
+        <div>
           <label>
             Adults only: <input name="filter" value="adults" type="checkbox">
           </label>
           <label>
             Non-fiction: <input name="filter" value="nonFiction" type="checkbox">
           </label>
-        </form>
+        </div>
       </section>
 
       <!-- BOOKS PANEL -->
@@ -45,7 +45,7 @@
       </header>
 
       <!-- cover image -->
-      <a href="#" class="book__image" data-id="{{ id }}">
+      <a href="#" class="book__image favorite" data-id="{{ id }}">
         <figure>
           <img src="{{ image }}" alt="{{ name }}">
         </figure>
