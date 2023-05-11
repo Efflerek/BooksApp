@@ -53,7 +53,6 @@ const app = {
 
     thisApp.initData();
     thisApp.render();
-    thisApp.addToFavorites(bookId);
     thisApp.favoriteBooks = []; // Inicjalizacja pustej tablicy favoriteBooks
     thisApp.initActions();
   }
