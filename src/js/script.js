@@ -35,7 +35,7 @@ const app = {
 
     for (let element of bookImageElements) {
       element.addEventListener('dblclick', function() {
-        const bookId = element.getAttribute('data-id');
+        const bookId = element.getAttribute(thisApp.data.books.id);
         console.log(bookId);
         thisApp.addToFavorites(bookId);
         element.classList.add('.favorite');
