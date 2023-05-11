@@ -1,11 +1,10 @@
-{
-    'use strict';
+'use strict';
 
 const app = {
   initMenu: function() {
     const thisApp = this;
     for (let book in thisApp.data.books) {
-      new Product(book, thisApp.data.books[book]);
+      new Book(book, thisApp.data.books[book]);
     }
   },
 
@@ -31,19 +30,15 @@ const app = {
 
   initActions() {
     const thisApp = this;
-    console.log(thisApp)
     const bookListElement = document.querySelector('.books-list');
-    console.log(bookListElement);
     const bookImageElements = bookListElement.querySelectorAll('.book__image');
-    console.log(bookImageElements);
+
     for (let element of bookImageElements) {
       element.addEventListener('dblclick', function() {
-        const bookId = element.getAttribute(thisApp.data.books.id);
-        console.log('BookID' + bookId)
+        const bookId = element.getAttribute('data-id');
+        console.log(bookId);
         thisApp.addToFavorites(bookId);
-        console.log(thisApp.addToFavorites(bookId)); //
-        element.classList.add('favorite');
-        console.log(bookId)
+        element.classList.add('.favorite');
       });
     }
   },
@@ -58,11 +53,9 @@ const app = {
 
     thisApp.initData();
     thisApp.render();
-    thisApp.favoriteBooks = [];
+    thisApp.favoriteBooks = []; // Inicjalizacja pustej tablicy favoriteBooks
     thisApp.initActions();
   }
 };
 
-
 app.init();
-}
