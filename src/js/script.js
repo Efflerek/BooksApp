@@ -35,10 +35,16 @@ const app = {
 
     for (let element of bookImageElements) {
       element.addEventListener('dblclick', function() {
-        const bookId = element.getAttribute(thisApp.data.books.id);
-        console.log(bookId);
-        thisApp.addToFavorites(bookId);
-        element.classList.add('.favorite');
+        const bookId = element.getAttribute('data-id'); // Get value of 'data-id'
+          if (thisApp.favoriteBooks.includes(bookId)) {
+            console.log('Remove from favorites');
+            thisApp.removeFromFavorites(bookId);
+            element.classList.remove('.favorite');
+          } else {
+            console.log('Add to favorites');
+            thisApp.addToFavorites(bookId);
+            element.classList.add('.favorite');
+          }
       });
     }
   },
@@ -48,12 +54,20 @@ const app = {
     thisApp.favoriteBooks.push(bookId);
   },
 
+  removeFromFavorites(bookId) {
+    const thisApp = this;
+    const index = thisApp.favoriteBooks.indexOf(bookId);
+    if (index !== -1) {
+      thisApp.favoriteBooks.splice(index, 1);
+    }
+  },
+
   init: function() {
     const thisApp = this;
 
     thisApp.initData();
     thisApp.render();
-    thisApp.favoriteBooks = []; // Inicjalizacja pustej tablicy favoriteBooks
+    thisApp.favoriteBooks = []; // Starting empty favoriteBooks
     thisApp.initActions();
   }
 };
