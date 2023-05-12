@@ -70,7 +70,7 @@ class BooksList {
           thisBookList.favoriteBooks.splice(i, 1);
         }
       }
-    };
+    });
     thisBookList.filterWrapper.addEventListener('click', function (event) {
       const clickedElement = event.target;
       if (
