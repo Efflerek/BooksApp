@@ -1,7 +1,7 @@
 /* global Handlebars, utils, dataSource */ // eslint-disable-line no-unused-vars
 
 {
-  ('use strict');
+  'use strict';
 
   const select = {
     templateOf: {
@@ -24,29 +24,45 @@
 
   class BooksList {
     constructor() {
-      //const thisBooksList = this; //Pytanie 1: jak używać this jako const bez przypisywania do nowej nazwy? Czyli żeby używać wszędzie this zamiast thisNazwa. Jak nie zadeklarowałem z nazwą to zwracało mi, że tablice favoriteBooks jest undefined.
+      //const thisBooksList = this;
 
       this.initData();
       this.getElements();
       this.render();
       this.initActions();
-      this.determineRatingBgc();
+      this.setRating();
     }
 
     initData() {
-      //const thisBooksList = this;
+      //*const thisApp = this;
+      //*thisApp.data = dataSource;
       this.data = dataSource.books;
-    }
+    },
 
     getElements() {
       //const thisBooksList = this;
       this.filters = [];
-      this.favoriteBooks = []; //Pytanie 1: Wyciągnięte poza classe, gdyż this zwracało undefined zadeklarowane jako this.favoriteBooks = [];
-      //thisBooksList.favoriteBooks = []; //Pytanie 1: jak używać this jako const bez przypisywania do nowej nazwy? Czyli żeby używać wszędzie this zamiast thisNazwa. Jak nie zadeklarowałem z nazwą to zwracało mi, że tablice favoriteBooks jest undefined.
-
+      this.favoriteBooks = [];
       this.bookContainer = document.querySelector(select.containerOf.books);
       this.filterContainer = document.querySelector(select.containerOf.filters);
     }
+
+    //*render() {
+    /*const thisApp = this;
+    const template = document.querySelector('#template-book').innerHTML;
+    const booksList = document.querySelector('.books-list');
+    console.log(booksList);
+    for (let book in thisApp.data.books) {
+      const bookData = thisApp.data.books[book];
+
+      const bookElement = document.createElement('li');
+      bookElement.innerHTML = template.replace(/{{(.*?)}}/g, (match, key) => bookData[key.trim()]);
+
+      booksList.appendChild(bookElement);
+      console.log(bookElement);
+    }
+  },
+}*/
 
     render() {
       //const thisBooksList = this;
@@ -56,7 +72,7 @@
         //console.log(book.rating);
 
         const ratingWidthTemp = 10 * book.rating;
-        const ratingBgcTemp = this.determineRatingBgc(book.rating);
+        const ratingBgcTemp = this.setRating(book.rating);
 
         const bookHTML = templates.bookTemplate({
           id: book.id,
@@ -67,18 +83,12 @@
           ratingWidth: ratingWidthTemp,
           ratingBgc: ratingBgcTemp,
         });
-        //console.log('bookHTML',bookHTML);
 
         const bookDOM = utils.createDOMFromHTML(bookHTML);
-        //console.log('bookDOM',bookDOM);
-
-        //console.log('bookContainer',bookContainer);
         this.bookContainer.appendChild(bookDOM);
       }
     }
-
-    determineRatingBgc(rating) {
-      let background = '';
+    setRating(rating) {
 
       if (rating < 6) {
         background = 'linear-gradient(to bottom,  #fefcea 0%, #f1da36 100%);';
@@ -111,13 +121,13 @@
 
         if (clickedElement.classList.contains(select.book.image.substring(1))) {
           clickedElement.classList.toggle('favorite');
-          let imageID = clickedElement.getAttribute('data-id');
+          let imageId = clickedElement.getAttribute('data-id');
           //console.log(clickedElement);
 
           //Pytanie 1: dlaczego this.favoriteBooks w tym miejscu zwraca undefined jeżeli najpierw nie przypiszemy do const?
-          if (!favoriteBooks.includes(imageID)) favoriteBooks.push(imageID);
-          else if (favoriteBooks.includes(imageID))
-            favoriteBooks.splice(favoriteBooks.indexOf(imageID, 1));
+          if (!favoriteBooks.includes(imageId)) favoriteBooks.push(imageID);
+          else if (favoriteBooks.includes(imageId))
+            favoriteBooks.splice(favoriteBooks.indexOf(imageId, 1));
           //console.log(favoriteBooks);
         }
       });
@@ -136,10 +146,7 @@
               thisBooksList.filters.indexOf(clickedElement.value, 1)
             );
         }
-
-        //console.log(filters);
-        thisBooksList.filterBooks(); //Pytanie 2: Podobnie jak w pyt 1, dopuki nie przypisałem this do stałej, funkcja filterBooks była zwracana jako undefined. Czy lepiej więc zawsze na początku metody przypisywać this do const?
-        //console.log(filterBooks);
+        thisBooksList.filterBooks();
       });
     }
 
@@ -176,6 +183,67 @@
       new BooksList();
     },
   };
-
   app.init();
 }
+
+
+  /*const app = {
+    initMenu() {
+      const thisApp = this;
+      for (let book in thisApp.data.books) {
+        new Book(book, thisApp.data.books[book]);
+        console.log(Book);
+      }
+    },*/
+
+
+
+
+
+    /*initActions() {
+      const thisBooksList = this;
+
+      const favoriteBooks = this.favoriteBooks;
+      //const filters = this.filters;
+
+      this.bookContainer.addEventListener('dblclick', function (event) {
+        event.preventDefault();
+
+        const clickedElement = event.target.offsetParent;
+
+        if (clickedElement.classList.contains(select.book.image.substring(1))) {
+          clickedElement.classList.toggle('.favorite');
+          let imageID = clickedElement.getAttribute('data-id');
+          //console.log(clickedElement);
+          if (!favoriteBooks.includes(imageID)) 
+            favoriteBooks.push(imageID);
+          else if (favoriteBooks.includes(imageID))
+            favoriteBooks.splice(favoriteBooks.indexOf(imageID, 1));
+          //console.log(favoriteBooks);
+        }
+      });
+    }
+
+  addToFavorites(bookId) {
+      console.log(addtoFavorites);
+      const thisApp = this;
+      thisApp.favoriteBooks.push(bookId);
+    },
+
+    removeFromFavorites(bookId) {
+      console.log(removeFromFavorites);
+      const thisApp = this;
+      const index = thisApp.favoriteBooks.indexOf(bookId);
+      if (index !== -1) {
+        thisApp.favoriteBooks.splice(index, 1);
+      }
+    },*//
+
+   // init() {
+   //   const thisApp = this;
+   //   thisApp.initData();
+   //   thisApp.render();
+   //   thisApp.favoriteBooks = []; // Starting empty favoriteBooks
+   //   thisApp.initActions();
+
+ // app.init();
