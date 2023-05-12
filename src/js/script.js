@@ -27,6 +27,7 @@ class BooksList {
     thisBookList.getElements();
     thisBookList.render();
     thisBookList.initActions();
+    thisBookList.setRating();
   }
 
   initData() {
@@ -50,7 +51,7 @@ class BooksList {
       thisBookList.bookListWrapper.appendChild(element);
     }
   }
-  
+
   setRating(rating) {
     let background;
 
