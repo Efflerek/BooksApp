@@ -46,6 +46,7 @@ class BooksList {
   render() {
     const thisBookList = this;
     for (let book of thisBookList.data) {
+      book.ratingBgc = thisBookList.setRating(book.rating);
       const generatedHTML = templates.booksList(book);
       const element = utils.createDOMFromHTML(generatedHTML);
       thisBookList.bookListWrapper.appendChild(element);
